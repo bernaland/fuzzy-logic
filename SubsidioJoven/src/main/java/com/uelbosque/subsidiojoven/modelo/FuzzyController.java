@@ -1,8 +1,6 @@
 package com.uelbosque.subsidiojoven.modelo;
 
 import java.io.File;
-import java.util.HashMap;
-
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
@@ -31,7 +29,7 @@ public class FuzzyController {
     }
 
     public Probabilidad ejecutarModelo(ParametrosModelo params) {
-        if (params.getEdad() >= 18 && params.getEdad() <= 28) {
+        if (params.esValido()) {
             System.out.println(params);
             modeloActual.setVariable("ingresos", params.getIngresos());
             modeloActual.setVariable("puntaje_crediticio", params.getPuntajeCrediticio());
@@ -53,6 +51,6 @@ public class FuzzyController {
             return outValue >= 0.6 ? Probabilidad.Alta 
                 : (outValue >= 0.4 ? Probabilidad.Media : Probabilidad.Baja);
         }
-        return Probabilidad.Baja;
+        return Probabilidad.Ninguna;
     }
 }

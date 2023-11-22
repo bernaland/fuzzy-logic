@@ -4,6 +4,12 @@
  */
 package com.uelbosque.subsidiojoven.formulario;
 
+import javax.swing.JOptionPane;
+
+import com.uelbosque.subsidiojoven.modelo.FuzzyController;
+import com.uelbosque.subsidiojoven.modelo.ParametrosModelo;
+import com.uelbosque.subsidiojoven.modelo.Probabilidad;
+
 /**
  *
  * @author helen
@@ -225,7 +231,27 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        ParametrosModelo params = new ParametrosModelo(
+            jTextField2.getText(), 
+            jTextField3.getText(), 
+            jTextField4.getText(), 
+            jTextField5.getText(),
+            jCheckBox1.isSelected(),
+            jCheckBox2.isSelected());
+        try {
+            params.validarDatos();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
+        }
+
+        FuzzyController controller = new FuzzyController();
+        controller.cargarModelo();
+        Probabilidad resultado = controller.ejecutarModelo(params);
+        String mensaje = resultado != Probabilidad.Ninguna ? 
+            "Tiene una posibilidad " +  resultado + "  de obtener el subsidio de vivienda joven" :
+            "No tiene posibilidades de obtener el subsidio de vivienda joven";
+        JOptionPane.showMessageDialog(null, mensaje);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
