@@ -1,0 +1,82 @@
+FUNCTION_BLOCK subsidioJoven
+  // Input Variables
+  VAR_INPUT
+    ingresos: REAL;
+    puntaje_crediticio: REAL;
+    valor_inmueble: REAL;
+  END_VAR
+
+  // Output Variables
+  VAR_OUTPUT
+    posibilidad: REAL;
+  END_VAR
+
+  // Fuzzy Variables
+  FUZZIFY ingresos
+    TERM bajo := trian 0 1.0 2.0;
+    TERM medio := trian 1.5 2.0 3.0;
+    TERM alto := trian 2.5 3.0 4.0;
+  END_FUZZIFY
+
+  FUZZIFY puntaje_crediticio
+    TERM bajo := (0, 1) (590, 1) (599, 0);
+    TERM medio := trape 600 610 749 759;
+    TERM alto := (759, 0) (760, 1) (1000, 1);
+  END_FUZZIFY
+
+  FUZZIFY valor_inmueble
+    TERM bajo := (0, 1) (110, 1) (120, 0);
+    TERM medio := trian 121 130 139;
+    TERM alto := trian 140 145 160;
+  END_FUZZIFY
+
+  DEFUZZIFY posibilidad
+    TERM Baja := trian 0 0.2 0.4;
+    TERM Media := trian 0.35 0.5 0.65;
+    TERM Alta := (0.6, 0) (0.65, 1) (1, 1);
+    METHOD : COG;
+    DEFAULT := -5;
+  END_DEFUZZIFY
+
+  RULEBLOCK asignacion
+    AND : MIN;	// Use 'min' for 'and'
+    ACT : MIN;	// Use 'min' activation method
+    ACCU : MAX;	// Use 'max' accumulation method
+
+    RULE 1 : IF ingresos IS bajo AND (puntaje_crediticio IS bajo AND valor_inmueble IS bajo) THEN posibilidad IS Baja;
+    RULE 2 : IF ingresos IS bajo AND (puntaje_crediticio IS medio AND valor_inmueble IS bajo) THEN posibilidad IS Baja;
+    RULE 3 : IF ingresos IS bajo AND (puntaje_crediticio IS alto AND valor_inmueble IS bajo) THEN posibilidad IS Baja;
+
+    RULE 4 : IF ingresos IS bajo AND (puntaje_crediticio IS bajo AND valor_inmueble IS medio) THEN posibilidad IS Baja;
+    RULE 5 : IF ingresos IS bajo AND (puntaje_crediticio IS medio AND valor_inmueble IS medio) THEN posibilidad IS Baja;
+    RULE 6 : IF ingresos IS bajo AND (puntaje_crediticio IS alto AND valor_inmueble IS medio) THEN posibilidad IS Baja;
+
+    RULE 7 : IF ingresos IS bajo AND (puntaje_crediticio IS bajo AND valor_inmueble IS alto) THEN posibilidad IS Baja;
+    RULE 8 : IF ingresos IS bajo AND (puntaje_crediticio IS medio AND valor_inmueble IS alto) THEN posibilidad IS Baja;
+    RULE 9 : IF ingresos IS bajo AND (puntaje_crediticio IS alto AND valor_inmueble IS alto) THEN posibilidad IS Media;
+
+    RULE 10 : IF ingresos IS medio AND (puntaje_crediticio IS bajo AND valor_inmueble IS bajo) THEN posibilidad IS Media;
+    RULE 11 : IF ingresos IS medio AND (puntaje_crediticio IS medio AND valor_inmueble IS bajo) THEN posibilidad IS Media;
+    RULE 12 : IF ingresos IS medio AND (puntaje_crediticio IS alto AND valor_inmueble IS bajo) THEN posibilidad IS Media;
+
+    RULE 13 : IF ingresos IS medio AND (puntaje_crediticio IS bajo AND valor_inmueble IS medio) THEN posibilidad IS Media;
+    RULE 14 : IF ingresos IS medio AND (puntaje_crediticio IS medio AND valor_inmueble IS medio) THEN posibilidad IS Media;
+    RULE 15 : IF ingresos IS medio AND (puntaje_crediticio IS alto AND valor_inmueble IS medio) THEN posibilidad IS Media;
+
+    RULE 16 : IF ingresos IS medio AND (puntaje_crediticio IS bajo AND valor_inmueble IS alto) THEN posibilidad IS Media;
+    RULE 17 : IF ingresos IS medio AND (puntaje_crediticio IS medio AND valor_inmueble IS alto) THEN posibilidad IS Media;
+    RULE 18 : IF ingresos IS medio AND (puntaje_crediticio IS alto AND valor_inmueble IS alto) THEN posibilidad IS Alta;
+
+    RULE 19 : IF ingresos IS alto AND (puntaje_crediticio IS bajo AND valor_inmueble IS bajo) THEN posibilidad IS Media;
+    RULE 20 : IF ingresos IS alto AND (puntaje_crediticio IS medio AND valor_inmueble IS bajo) THEN posibilidad IS Media;
+    RULE 21 : IF ingresos IS alto AND (puntaje_crediticio IS alto AND valor_inmueble IS bajo) THEN posibilidad IS Media;
+
+    RULE 22 : IF ingresos IS alto AND (puntaje_crediticio IS bajo AND valor_inmueble IS medio) THEN posibilidad IS Media;
+    RULE 23 : IF ingresos IS alto AND (puntaje_crediticio IS medio AND valor_inmueble IS medio) THEN posibilidad IS Alta;
+    RULE 24 : IF ingresos IS alto AND (puntaje_crediticio IS alto AND valor_inmueble IS medio) THEN posibilidad IS Alta;
+
+    RULE 25 : IF ingresos IS alto AND (puntaje_crediticio IS bajo AND valor_inmueble IS alto) THEN posibilidad IS Alta;
+    RULE 26 : IF ingresos IS alto AND (puntaje_crediticio IS medio AND valor_inmueble IS alto) THEN posibilidad IS Alta;
+    RULE 27 : IF ingresos IS alto AND (puntaje_crediticio IS alto AND valor_inmueble IS alto) THEN posibilidad IS Alta;
+  END_RULEBLOCK
+END_FUNCTION_BLOCK
