@@ -249,7 +249,7 @@ public class MainFrame extends javax.swing.JFrame {
         controller.cargarModelo();
         Probabilidad resultado = controller.ejecutarModelo(params);
         String mensaje = resultado != Probabilidad.Ninguna ? 
-            "Tiene una posibilidad " +  resultado + "  de obtener el subsidio de vivienda joven" :
+            "Tiene una favorabilidad " +  resultado + "  de obtener el subsidio de vivienda joven" :
             "No tiene posibilidades de obtener el subsidio de vivienda joven";
         JOptionPane.showMessageDialog(null, mensaje);
     }//GEN-LAST:event_jButton1ActionPerformed

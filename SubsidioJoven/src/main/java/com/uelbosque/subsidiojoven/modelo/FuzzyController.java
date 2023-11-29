@@ -38,7 +38,7 @@ public class FuzzyController {
             modeloActual.evaluate();
 
             // FunctionBlock block = modeloActual.getFunctionBlock("subsidioJoven");
-            Variable outVar = modeloActual.getVariable("posibilidad");
+            Variable outVar = modeloActual.getVariable("favorabilidad");
 
             // JFuzzyChart.get().chart(outVar, outVar.getDefuzzifier(), true);
 

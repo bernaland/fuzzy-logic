@@ -32,45 +32,52 @@ public class ParametrosModelo {
         double valor = 0;
         try {
             valor = Double.parseDouble(this.edadStr);
-            if (valor < 0) {
-                throw new IllegalArgumentException("Debe ingresar un valor valido para la edad");
-            }
-            this.edad = (int)valor;
         } catch (Exception e) {
             throw new IllegalArgumentException("Debe ingresar un valor valido para la edad", e);
         }
+        if (valor < 0) {
+            throw new IllegalArgumentException("Debe ingresar un valor valido para la edad");
+        } else if (valor < 18 || valor > 28) {
+            throw new IllegalArgumentException("El candidato debe ser mayor de edad y tener menos de 28 años");
+        }
+        this.edad = (int)valor;
         
         try {
             this.ingresos = Double.parseDouble(this.ingresosStr);
-            if (this.ingresos < 0){
-                throw new IllegalArgumentException("Debe ingresar un valor valido para los ingresos");
-            }
         } catch (Exception ex) {
             throw new IllegalArgumentException("Debe ingresar un valor valido para los ingresos", ex);
+        }
+        if (this.ingresos < 0){
+            throw new IllegalArgumentException("Debe ingresar un valor valido para los ingresos");
+        } else if (this.ingresos < salarioMinimo) {
+            throw new IllegalArgumentException("El candidato no tiene ingresos de por lo menos de " + String.format("$%,.0f", salarioMinimo));
+        } else if (this.ingresos > 4 * salarioMinimo) {
+            throw new IllegalArgumentException("El candidato posee ingresos mayores a " + String.format("$%,.0f", 4 * salarioMinimo) + ". \n\rLo cual le impide acceder al programa");
         }
 
         try {
             valor = Double.parseDouble(this.puntajeStr);
-            if (valor < 0 && valor > 1000) {
-                throw new IllegalArgumentException("Debe ingresar un valor entre 0 y 1000 para el puntaje crediticio");
-            }
-            this.puntajeCrediticio = valor > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int)valor;
         } catch (Exception ex) {
-            throw new IllegalArgumentException("Debe ingresar un valor entre 0 y 1000 para el puntaje crediticio", ex);
+            throw new IllegalArgumentException("Debe ingresar un valor entre 0 y 900 para el puntaje crediticio", ex);
         }
+        if (valor < 0 || valor > 900) {
+            throw new IllegalArgumentException("Debe ingresar un valor entre 0 y 900 para el puntaje crediticio");
+        }
+        this.puntajeCrediticio = (int)valor;
         
         try {
             valor = Double.parseDouble(this.valorStr);
-            if (valor < 0 && valor > (salarioMinimo * 150)) {
-                throw new IllegalArgumentException("Debe ingresar un valor entre 0 y " + (salarioMinimo * 150) + " para el precio del inmueble");
-            }
         } catch (Exception ex) {
-            throw new IllegalArgumentException("Debe ingresar un valor entre 0 y " + (salarioMinimo * 150) + " para el precio del inmueble", ex);
+            throw new IllegalArgumentException("Debe ingresar un valor entre 0 y " + String.format("$%,.0f", salarioMinimo * 150) + " para el precio del inmueble", ex);
         }
+        if (valor < (100 * salarioMinimo) || valor > (salarioMinimo * 150)) {
+            throw new IllegalArgumentException("Debe ingresar un valor entre " + String.format("$%,.0f", salarioMinimo * 100) + " y " + String.format("$%,.0f", salarioMinimo * 150) + " para el precio del inmueble");
+        }
+        this.valorInmueble = valor;
     }
 
     public boolean esValido() {
-        if (this.edad < 18 && this.edad > 28) {
+        if (this.edad < 18 || this.edad > 28) {
             return false;
         }
         else if (this.recibioSubsidio || this.poseeInmuebles) {
