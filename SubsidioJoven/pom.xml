@@ -21,4 +21,50 @@
             <systemPath>${basedir}\lib\jFuzzyLogic.jar</systemPath>
         </dependency>
     </dependencies>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <includeScope>system</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-file</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>..\SubsidioJoven.fcl</sourceFile>
+                            <destinationFile>target/SubsidioJoven.fcl</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

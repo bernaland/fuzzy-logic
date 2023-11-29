@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\Katherine Ramirez S\OneDrive\Escritorio\Code\fuzzy-logic\SubsidioJoven\target\SubsidioJoven-1.0-SNAPSHOT.jar</jar>
+  <outfile>C:\Users\Katherine Ramirez S\OneDrive\Escritorio\Code\fuzzy-logic\SubsidioJoven\target\FavorabilidadSubsidioJoven.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon></icon>
+  <classPath>
+    <mainClass>com.uelbosque.subsidiojoven.SubsidioJoven</mainClass>
+    <cp>.\*</cp>
+  </classPath>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion></minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+</launch4jConfig>
