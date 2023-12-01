@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Katherine Ramirez S\OneDrive\Escritorio\Code\fuzzy-logic\SubsidioJoven\target\SubsidioJoven-1.0-SNAPSHOT.jar</jar>
+  <jar>C:\Users\Katherine Ramirez S\OneDrive\Escritorio\Code\fuzzy-logic\SubsidioJoven\target\SubsidioJoven-1.0.1.jar</jar>
   <outfile>C:\Users\Katherine Ramirez S\OneDrive\Escritorio\Code\fuzzy-logic\SubsidioJoven\target\FavorabilidadSubsidioJoven.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
