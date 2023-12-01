@@ -4,6 +4,7 @@
 
 package com.uelbosque.subsidiojoven;
 
+import com.uelbosque.subsidiojoven.formulario.Frame;
 import com.uelbosque.subsidiojoven.formulario.MainFrame;
 
 /**
@@ -15,7 +16,8 @@ public class SubsidioJoven {
     public static void main(String[] args) {
        java.awt.EventQueue.invokeLater(new Runnable() {
          public void run() {
-            new MainFrame().setVisible(true);
+            // new MainFrame().setVisible(true);
+            new Frame().setVisible(true);
          }
       });
     }
